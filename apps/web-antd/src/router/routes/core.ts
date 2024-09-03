@@ -29,58 +29,58 @@ const coreRoutes: RouteRecordRaw[] = [
     path: '/',
     redirect: DEFAULT_HOME_PATH,
   },
-  {
-    component: AuthPageLayout,
-    meta: {
-      title: 'Authentication',
-    },
-    name: 'Authentication',
-    path: '/auth',
-    children: [
-      {
-        name: 'Login',
-        path: 'login',
-        component: Login,
-        meta: {
-          title: $t('page.core.login'),
-        },
-      },
-      {
-        name: 'CodeLogin',
-        path: 'code-login',
-        component: () => import('#/views/_core/authentication/code-login.vue'),
-        meta: {
-          title: $t('page.core.codeLogin'),
-        },
-      },
-      {
-        name: 'QrCodeLogin',
-        path: 'qrcode-login',
-        component: () =>
-          import('#/views/_core/authentication/qrcode-login.vue'),
-        meta: {
-          title: $t('page.core.qrcodeLogin'),
-        },
-      },
-      {
-        name: 'ForgetPassword',
-        path: 'forget-password',
-        component: () =>
-          import('#/views/_core/authentication/forget-password.vue'),
-        meta: {
-          title: $t('page.core.forgetPassword'),
-        },
-      },
-      {
-        name: 'Register',
-        path: 'register',
-        component: () => import('#/views/_core/authentication/register.vue'),
-        meta: {
-          title: $t('page.core.register'),
-        },
-      },
-    ],
-  },
+  // {
+  //   component: AuthPageLayout,
+  //   meta: {
+  //     title: 'Authentication',
+  //   },
+  //   name: 'Authentication',
+  //   path: '/auth',
+  //   children: [
+  //     {
+  //       name: 'Login',
+  //       path: 'login',
+  //       component: Login,
+  //       meta: {
+  //         title: $t('page.core.login'),
+  //       },
+  //     },
+  //     {
+  //       name: 'CodeLogin',
+  //       path: 'code-login',
+  //       component: () => import('#/views/_core/authentication/code-login.vue'),
+  //       meta: {
+  //         title: $t('page.core.codeLogin'),
+  //       },
+  //     },
+  //     {
+  //       name: 'QrCodeLogin',
+  //       path: 'qrcode-login',
+  //       component: () =>
+  //         import('#/views/_core/authentication/qrcode-login.vue'),
+  //       meta: {
+  //         title: $t('page.core.qrcodeLogin'),
+  //       },
+  //     },
+  //     {
+  //       name: 'ForgetPassword',
+  //       path: 'forget-password',
+  //       component: () =>
+  //         import('#/views/_core/authentication/forget-password.vue'),
+  //       meta: {
+  //         title: $t('page.core.forgetPassword'),
+  //       },
+  //     },
+  //     {
+  //       name: 'Register',
+  //       path: 'register',
+  //       component: () => import('#/views/_core/authentication/register.vue'),
+  //       meta: {
+  //         title: $t('page.core.register'),
+  //       },
+  //     },
+  //   ],
+  // },
 ];
 
 export { coreRoutes, fallbackNotFoundRoute };
