@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Button, Card, message, notification, Space, InputSearch } from 'ant-design-vue';
-import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
+import { MdiMagnify } from '@vben/icons';
 import { onMounted, onBeforeUnmount, ref } from 'vue';
 import { debounce } from 'lodash';
 const myElement = ref(null);
@@ -67,9 +67,15 @@ const onSearch = (value: any) => {
       </div>
     </div>
     <div class="right">
-      <InputSearch class="input-search" v-model:value="searchValue" placeholder="请输入关键字" enter-button="搜索" size="large"
-        @search="onSearch" />
-
+      <InputSearch class="input-search" v-model:value="searchValue" placeholder="input search text" size="large"
+        @search="onSearch">
+        <template #enterButton>
+          <div class="s-w">
+            <MdiMagnify class="size-5" />
+            <Button type="primary">搜索</Button>
+          </div>
+        </template>
+      </InputSearch>
       <div class="right-content">
         <div class="right-content-item">
           <div class="title">
@@ -211,6 +217,11 @@ const onSearch = (value: any) => {
   .input-search {
     margin-top: 50px;
     width: 48.6vw;
+  }
+
+  .s-w {
+    display: flex;
+    align-items: center;
   }
 
   .right-content {
