@@ -72,7 +72,7 @@ const onSearch = (value: any) => {
         <template #enterButton>
           <div class="s-w">
             <MdiMagnify class="size-5" />
-            <Button type="primary">搜索</Button>
+            <!-- <Button type="primary">搜索</Button> -->
           </div>
         </template>
       </InputSearch>

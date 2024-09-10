@@ -22,12 +22,17 @@ const fallbackNotFoundRoute: RouteRecordRaw = {
 /** 基本路由，这些路由是必须存在的 */
 const coreRoutes: RouteRecordRaw[] = [
   {
-    meta: {
-      title: 'Root',
-    },
-    name: 'Root',
+    // meta: {
+    //   title: 'Root',
+    // },
+    // name: 'Root',
     path: '/',
     redirect: DEFAULT_HOME_PATH,
+  },
+  {
+    name: 'Hulua-store',
+    path: '/hulua-store',
+    component: () => import('#/views/huluaStore/index.vue')
   },
   // {
   //   component: AuthPageLayout,

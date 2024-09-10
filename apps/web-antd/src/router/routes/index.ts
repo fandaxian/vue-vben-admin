@@ -21,7 +21,7 @@ const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles);
 /** 路由列表，由基本路由+静态路由组成 */
 const routes: RouteRecordRaw[] = [
   ...coreRoutes,
-  ...externalRoutes,
+  // ...externalRoutes,
   fallbackNotFoundRoute,
 ];
 

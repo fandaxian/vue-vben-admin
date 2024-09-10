@@ -129,9 +129,9 @@ function setupAccessGuard(router: Router) {
  */
 function createRouterGuard(router: Router) {
   /** 通用 */
-  setupCommonGuard(router);
+  // setupCommonGuard(router);
   /** 权限访问 */
-  setupAccessGuard(router);
+  // setupAccessGuard(router);
 }
 
 export { createRouterGuard };
