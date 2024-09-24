@@ -28,6 +28,36 @@ const searchValue = ref<string>('')
 const onSearch = (value: any) => {
   console.log(value)
 }
+const listChildren: any = [
+  {
+    title: '热门推荐',
+    child: [
+      {
+        name: '待定'
+      },
+      // {
+      //   name: '1'
+      // },
+      // {
+      //   name: '1'
+      // },
+      // {
+      //   name: '1'
+      // },
+      // {
+      //   name: '1'
+      // }
+    ]
+  }
+]
+const showDetails = ref<boolean>(false)
+const viewDetails = () => {
+  showDetails.value = true
+  console.log('查看详情')
+}
+const back = () => {
+  showDetails.value = false
+}
 </script>
 
 <template>
@@ -66,7 +96,7 @@ const onSearch = (value: any) => {
         </div>
       </div>
     </div>
-    <div class="right">
+    <div class="right" v-if="!showDetails">
       <InputSearch class="input-search" v-model:value="searchValue" placeholder="input search text" size="large"
         @search="onSearch">
         <template #enterButton>
@@ -77,69 +107,67 @@ const onSearch = (value: any) => {
         </template>
       </InputSearch>
       <div class="right-content">
-        <div class="right-content-item">
+        <div class="right-content-item" v-for="item in listChildren">
           <div class="title">
-            热门推荐
+            {{ item.title }}
           </div>
           <div class="list">
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-          </div>
-        </div>
-        <div class="right-content-item">
-          <div class="title">
-            热门推荐
-          </div>
-          <div class="list">
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
-            </div>
-            <div class="list-item">
-
+            <div class="list-item" v-for="c in item.child" @click="viewDetails">
+              {{ c.name }}
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="details" v-else>
+      <div class="line1">
+        <div class="app-icon"></div>
+        <div class="line1-right-wrapper">
+          <div class="line1-right-text">XXXXXXXXX</div>
+          <div class="line1-right-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮</div>
+        </div>
+      </div>
+      <div class="c-wrapper">
+        <div class="line2">
+          <div class="line2-text">XXXXXXX</div>
+          <div class="line2-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提提高您的邮件会议撰写效率提高您邮件会</div>
+        </div>
+        <div class="line3-text">XXXXXXX</div>
+        <div class="show-wrapper">
+          <div class="show1"></div>
+          <div class="show1"></div>
+        </div>
+        <div class="line4">
+          提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
+        </div>
+        <div class="number-wrapper">
+          <div class="number-item">
+            <div class="number-item-text1">500+</div>
+            <div class="number-item-text2">xxxxxxxxx</div>
+          </div>
+          <div class="number-item">
+            <div class="number-item-text1">500+</div>
+            <div class="number-item-text2">xxxxxxxxx</div>
+          </div>
+          <div class="number-item">
+            <div class="number-item-text1">500+</div>
+            <div class="number-item-text2">xxxxxxxxx</div>
+          </div>
+          <div class="number-item">
+            <div class="number-item-text1">500+</div>
+            <div class="number-item-text2">xxxxxxxxx</div>
+          </div>
+        </div>
+        <div class="line3-text">XXXXXXX</div>
+        <div class="show-wrapper">
+          <div class="show1"></div>
+          <div class="show1"></div>
+        </div>
+        <div class="line4-n">
+          提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
+        </div>
+      </div>
+      <Button class="bottom-btn" @click="back" type="primary">返回</Button>
     </div>
   </div>
 </template>
@@ -260,7 +288,8 @@ const onSearch = (value: any) => {
         /* 居中对齐 */
 
         .list-item {
-          flex: 1 1 calc(25% - 10px);
+          // flex: 1 1 calc(25% - 10px);
+          width: 24%;
           /* 每项占 25% 减去间距 */
           height: 130px;
           /* 项目高度 */
@@ -269,9 +298,150 @@ const onSearch = (value: any) => {
           justify-content: center;
           background: rgba(255, 255, 255, 0.80);
           border-radius: 12px;
+          cursor: pointer;
         }
       }
     }
+  }
+}
+
+.details {
+
+  width: 84.4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 6.5vh 2vw;
+
+  .line1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .app-icon {
+      margin-right: 1.6vw;
+      width: 100px;
+      height: 100px;
+      background-image: linear-gradient(209deg, #40A8F4 0%, #416BF6 100%);
+      border-radius: 20px;
+    }
+
+    .line1-right-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .line1-right-text {
+        font-size: 30px;
+        color: #15161A;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .line1-right-text2 {
+        font-size: 18px;
+        color: #909399;
+        letter-spacing: 0;
+        font-weight: 400;
+        width: 40vw;
+        /* 或者使用max-width */
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .c-wrapper {
+    height: 450px;
+    overflow: hidden;
+    overflow-y: auto;
+    margin-top: 6vh;
+
+    .line2 {
+      display: flex;
+      flex-direction: column;
+
+      .line2-text {
+        font-size: 20px;
+        color: #15161A;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .line2-text2 {
+        font-size: 18px;
+        color: #909399;
+        letter-spacing: 0;
+        font-weight: 400;
+      }
+    }
+
+    .line3-text {
+      margin-top: 3.2vh;
+      font-size: 20px;
+      color: #15161A;
+      font-weight: bold;
+      margin-bottom: 2.2vh;
+    }
+
+    .show-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3.2vh;
+
+      .show1 {
+        height: 24.3vh;
+        width: 49%;
+        background: #DEECFF;
+        border-radius: 8px;
+      }
+    }
+
+    .line4 {
+      font-size: 18px;
+      color: #909399;
+      letter-spacing: 0;
+      margin-bottom: 2.2vh;
+    }
+
+    .line4-n {
+      font-size: 18px;
+      color: #909399;
+      letter-spacing: 0;
+    }
+
+    .number-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 8vh 0 6vh 0;
+
+      .number-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 4vw;
+
+        .number-item-text1 {
+          font-size: 50px;
+          color: #15161A;
+          font-weight: bold;
+        }
+
+        .number-item-text2 {
+          font-size: 18px;
+          color: #909399;
+          letter-spacing: 0;
+        }
+      }
+    }
+  }
+
+  .bottom-btn {
+    margin-top: 20px;
   }
 }
 </style>
