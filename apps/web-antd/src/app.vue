@@ -14,15 +14,15 @@ const { isDark } = usePreferences();
 const { tokens } = useAntdDesignTokens();
 
 const tokenTheme = computed(() => {
-  const algorithm = isDark.value
-    ? [theme.darkAlgorithm]
-    : [theme.defaultAlgorithm];
+  // const algorithm = isDark.value
+  //   ? [theme.darkAlgorithm]
+  //   : [theme.defaultAlgorithm];
 
-  // const algorithm = theme.defaultAlgorithm
+  const algorithm = [theme.defaultAlgorithm]
   // antd 紧凑模式算法
-  if (preferences.app.compact) {
-    algorithm.push(theme.compactAlgorithm);
-  }
+  // if (preferences.app.compact) {
+  //   algorithm.push(theme.compactAlgorithm);
+  // }
   
   return {
     algorithm,
@@ -32,7 +32,7 @@ const tokenTheme = computed(() => {
 </script>
 
 <template>
-  <ConfigProvider :locale="antdLocale" :theme="tokenTheme">
+  <ConfigProvider :locale="antdLocale">
     <App>
       <RouterView />
     </App>

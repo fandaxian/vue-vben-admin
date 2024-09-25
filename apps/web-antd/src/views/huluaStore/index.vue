@@ -113,7 +113,7 @@ const back = () => {
           </div>
           <div class="list">
             <div class="list-item" v-for="c in item.child" @click="viewDetails">
-              {{ c.name }}
+              <!-- {{ c.name }} -->
             </div>
           </div>
         </div>
@@ -439,7 +439,7 @@ const back = () => {
       }
     }
   }
-
+  
   .bottom-btn {
     margin-top: 20px;
   }
