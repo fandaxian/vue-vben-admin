@@ -73,6 +73,7 @@ const onSubmit = () => {
   formRef.value
     .validate()
     .then(() => {
+      queryDataSource()
       console.log('values', formState.value);
     })
     .catch((error: any) => {
@@ -81,6 +82,7 @@ const onSubmit = () => {
 };
 const resetForm = () => {
   formRef.value.resetFields();
+  queryDataSource()
 };
 const dataSource = ref<any>([])
 const columns = [
@@ -206,7 +208,11 @@ const pageInfo = ref<any>({
   total: 0
 })
 const pagination = computed<any>(() => ({
-  ...pageInfo.value
+  ...pageInfo.value,
+  hideOnSinglePage: false,
+  showQuickJumper: true,
+  showSizeChanger: true,
+  showTotal: (total, range) => `共${total}条记录 第 ${Math.ceil(range[0] / pageInfo.value.pageSize)} / ${Math.ceil(range[1] / pageInfo.value.pageSize)}页`
 }))
 
 const tableChange = (p) => {
