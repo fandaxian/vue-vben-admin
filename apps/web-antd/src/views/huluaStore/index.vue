@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { Button, Card, message, notification, Space, InputSearch } from 'ant-design-vue';
+import { Button, Card, message, notification, Space, InputSearch, Select, Form, FormItem, SelectOption, Table } from 'ant-design-vue';
 import { MdiMagnify } from '@vben/icons';
-import { onMounted, onBeforeUnmount, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref, computed } from 'vue';
 import { debounce } from 'lodash';
 const myElement = ref(null);
 const elementWidth = ref<number>(0)
@@ -23,6 +23,9 @@ const resizeBox = debounce(() => {
 const menuIndex = ref<number>(0)
 const handleMenuItem = (index: number) => {
   menuIndex.value = index
+  if (index === 4) {
+    queryDataSource()
+  }
 }
 const searchValue = ref<string>('')
 const onSearch = (value: any) => {
@@ -58,6 +61,160 @@ const viewDetails = () => {
 const back = () => {
   showDetails.value = false
 }
+
+// -------------------------数据来源-------------------------
+const formState = ref<any>({
+  source: '',
+  sex: ''
+})
+
+const formRef = ref();
+const onSubmit = () => {
+  formRef.value
+    .validate()
+    .then(() => {
+      console.log('values', formState.value);
+    })
+    .catch((error: any) => {
+      console.log('error', error);
+    });
+};
+const resetForm = () => {
+  formRef.value.resetFields();
+};
+const dataSource = ref<any>([])
+const columns = [
+  {
+    title: '渠道来源',
+    dataIndex: 'row1',
+    key: 'row1',
+    align: 'center',
+    width: 100,
+    ellipsis: true
+  },
+  {
+    title: '昵称',
+    dataIndex: 'row2',
+    key: 'row2',
+    align: 'center',
+    width: 120,
+    ellipsis: true
+  },
+  {
+    title: 'ID',
+    dataIndex: 'row3',
+    key: 'row3',
+    align: 'center',
+    width: 120,
+    ellipsis: true
+  },
+  {
+    title: '性别',
+    dataIndex: 'row4',
+    key: 'row4',
+    align: 'center',
+    width: 80,
+    ellipsis: true
+  },
+  {
+    title: '问题',
+    dataIndex: 'row5',
+    key: 'row5',
+    align: 'center',
+    width: 200,
+    // ellipsis: true
+  },
+  {
+    title: 'AI生成私信开场语',
+    dataIndex: 'row6',
+    key: 'row6',
+    align: 'center',
+    width: 200,
+    // ellipsis: true
+  },
+  {
+    title: '画像',
+    dataIndex: 'row7',
+    key: 'row7',
+    align: 'center',
+    width: 180,
+    ellipsis: true
+  },
+  {
+    title: '操作',
+    dataIndex: 'action',
+    key: 'action',
+    align: 'center',
+    fixed: 'right',
+    width: 150,
+  }
+]
+
+const loading = ref<boolean>(false)
+
+const queryDataSource = async () => {
+  try {
+    // loading.value = true
+    dataSource.value = [
+      {
+        row1: '小红书',
+        row2: '君毓',
+        row3: '553535793',
+        row4: '女',
+        row5: '门诊可以报同位素治疗疤痕吗',
+        row6: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        row7: '代理人'
+      },
+      {
+        row1: '小红书',
+        row2: '君毓',
+        row3: '553535793',
+        row4: '女',
+        row5: '门诊可以报同位素治疗疤痕吗',
+        row6: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        row7: '代理人'
+      },
+      {
+        row1: '小红书',
+        row2: '君毓',
+        row3: '553535793',
+        row4: '女',
+        row5: '门诊可以报同位素治疗疤痕吗',
+        row6: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        row7: '代理人'
+      },
+      {
+        row1: '小红书',
+        row2: '君毓',
+        row3: '553535793',
+        row4: '女',
+        row5: '门诊可以报同位素治疗疤痕吗',
+        row6: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        row7: '代理人'
+      }
+    ]
+  } catch (err) {
+
+  }
+}
+const sendPhone = () => {
+  message.success('已发送至手机，请查看')
+}
+const pageInfo = ref<any>({
+  current: 1,
+  pageSize: 10,
+  total: 0
+})
+const pagination = computed<any>(() => ({
+  ...pageInfo.value
+}))
+
+const tableChange = (p) => {
+  const { current, pageSize } = p
+  pageInfo.value.current = current;
+  pageInfo.value.pageSize = pageSize;
+  queryDataSource()
+}
 </script>
 
 <template>
@@ -73,7 +230,7 @@ const back = () => {
           <img v-else src="../../assets/svg/home.svg" alt="SVG Icon" width="16" height="16" />
           <div class="text" :class="menuIndex === 0 ? 'text-active' : ''">热门推荐</div>
         </div>
-        <div class="menu-item" :class="menuIndex === 1 ? 'menu-item-active' : ''" @click="handleMenuItem(1)">
+        <!-- <div class="menu-item" :class="menuIndex === 1 ? 'menu-item-active' : ''" @click="handleMenuItem(1)">
           <img v-if="menuIndex === 1" src="../../assets/svg/qlgv-active.svg" alt="SVG Icon" width="16" height="16" />
           <img v-else src="../../assets/svg/qlgv.svg" alt="SVG Icon" width="16" height="16" />
           <div class="text" :class="menuIndex === 1 ? 'text-active' : ''">轻量工具</div>
@@ -87,7 +244,7 @@ const back = () => {
           <img v-if="menuIndex === 3" src="../../assets/svg/flag-active.svg" alt="SVG Icon" width="16" height="16" />
           <img v-else src="../../assets/svg/flag.svg" alt="SVG Icon" width="16" height="16" />
           <div class="text" :class="menuIndex === 3 ? 'text-active' : ''">智能助理</div>
-        </div>
+        </div> -->
         <div class="menu-item" :class="menuIndex === 4 ? 'menu-item-active' : ''" @click="handleMenuItem(4)">
           <img v-if="menuIndex === 4" src="../../assets/svg/areachart-active.svg" alt="SVG Icon" width="16"
             height="16" />
@@ -96,79 +253,113 @@ const back = () => {
         </div>
       </div>
     </div>
-    <div class="right" v-if="!showDetails">
-      <InputSearch class="input-search" v-model:value="searchValue" placeholder="input search text" size="large"
-        @search="onSearch">
-        <template #enterButton>
-          <div class="s-w">
-            <MdiMagnify class="size-5" />
-            <!-- <Button type="primary">搜索</Button> -->
-          </div>
-        </template>
-      </InputSearch>
-      <div class="right-content">
-        <div class="right-content-item" v-for="item in listChildren">
-          <div class="title">
-            {{ item.title }}
-          </div>
-          <div class="list">
-            <div class="list-item" v-for="c in item.child" @click="viewDetails">
-              <!-- {{ c.name }} -->
+    <!-- 热门推荐 -->
+    <template v-if="menuIndex === 0">
+      <div class="right" v-if="!showDetails">
+        <InputSearch class="input-search" v-model:value="searchValue" placeholder="input search text" size="large"
+          @search="onSearch">
+          <template #enterButton>
+            <div class="s-w">
+              <MdiMagnify class="size-5" />
+              <!-- <Button type="primary">搜索</Button> -->
+            </div>
+          </template>
+        </InputSearch>
+        <div class="right-content">
+          <div class="right-content-item" v-for="item in listChildren">
+            <div class="title">
+              {{ item.title }}
+            </div>
+            <div class="list">
+              <div class="list-item" v-for="c in item.child" @click="viewDetails">
+                <!-- {{ c.name }} -->
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="details" v-else>
-      <div class="line1">
-        <div class="app-icon"></div>
-        <div class="line1-right-wrapper">
-          <div class="line1-right-text">XXXXXXXXX</div>
-          <div class="line1-right-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮</div>
+      <div class="details" v-else>
+        <div class="line1">
+          <div class="app-icon"></div>
+          <div class="line1-right-wrapper">
+            <div class="line1-right-text">XXXXXXXXX</div>
+            <div class="line1-right-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮</div>
+          </div>
         </div>
+        <div class="c-wrapper">
+          <div class="line2">
+            <div class="line2-text">XXXXXXX</div>
+            <div class="line2-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提提高您的邮件会议撰写效率提高您邮件会</div>
+          </div>
+          <div class="line3-text">XXXXXXX</div>
+          <div class="show-wrapper">
+            <div class="show1"></div>
+            <div class="show1"></div>
+          </div>
+          <div class="line4">
+            提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
+          </div>
+          <div class="number-wrapper">
+            <div class="number-item">
+              <div class="number-item-text1">500+</div>
+              <div class="number-item-text2">xxxxxxxxx</div>
+            </div>
+            <div class="number-item">
+              <div class="number-item-text1">500+</div>
+              <div class="number-item-text2">xxxxxxxxx</div>
+            </div>
+            <div class="number-item">
+              <div class="number-item-text1">500+</div>
+              <div class="number-item-text2">xxxxxxxxx</div>
+            </div>
+            <div class="number-item">
+              <div class="number-item-text1">500+</div>
+              <div class="number-item-text2">xxxxxxxxx</div>
+            </div>
+          </div>
+          <div class="line3-text">XXXXXXX</div>
+          <div class="show-wrapper">
+            <div class="show1"></div>
+            <div class="show1"></div>
+          </div>
+          <div class="line4-n">
+            提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
+          </div>
+        </div>
+        <Button class="bottom-btn" @click="back" type="primary">返回</Button>
       </div>
-      <div class="c-wrapper">
-        <div class="line2">
-          <div class="line2-text">XXXXXXX</div>
-          <div class="line2-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提提高您的邮件会议撰写效率提高您邮件会</div>
-        </div>
-        <div class="line3-text">XXXXXXX</div>
-        <div class="show-wrapper">
-          <div class="show1"></div>
-          <div class="show1"></div>
-        </div>
-        <div class="line4">
-          提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
-        </div>
-        <div class="number-wrapper">
-          <div class="number-item">
-            <div class="number-item-text1">500+</div>
-            <div class="number-item-text2">xxxxxxxxx</div>
-          </div>
-          <div class="number-item">
-            <div class="number-item-text1">500+</div>
-            <div class="number-item-text2">xxxxxxxxx</div>
-          </div>
-          <div class="number-item">
-            <div class="number-item-text1">500+</div>
-            <div class="number-item-text2">xxxxxxxxx</div>
-          </div>
-          <div class="number-item">
-            <div class="number-item-text1">500+</div>
-            <div class="number-item-text2">xxxxxxxxx</div>
-          </div>
-        </div>
-        <div class="line3-text">XXXXXXX</div>
-        <div class="show-wrapper">
-          <div class="show1"></div>
-          <div class="show1"></div>
-        </div>
-        <div class="line4-n">
-          提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
-        </div>
+    </template>
+    <!-- 数据来源 -->
+    <template v-if="menuIndex === 4">
+      <div class="table-right">
+        <Card>
+          <div class="tit">用户信息</div>
+          <Form style="margin: 20px 0;" ref="formRef" layout="inline" :model="formState">
+            <FormItem label="渠道来源" name="source">
+              <Select v-model:value="formState.source" placeholder="请选择" style="width: 120px;">
+                <SelectOption value="小红书">小红书</SelectOption>
+              </Select>
+            </FormItem>
+            <FormItem label="性别" name="sex">
+              <Select v-model:value="formState.sex" placeholder="请选择" style="width: 120px;">
+                <SelectOption value="男">男</SelectOption>
+                <SelectOption value="女">女</SelectOption>
+              </Select>
+            </FormItem>
+            <FormItem>
+              <Button type="primary" @click="onSubmit">查询</Button>
+              <Button style="margin-left: 10px" @click="resetForm">重置</Button>
+            </FormItem>
+          </Form>
+          <Table :loading="loading" :dataSource="dataSource" :columns="columns" :scroll="{ x: 1000, y: 400 }"
+            @change='tableChange' :pagination="pagination" <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex === 'action'">
+              <Button size="small" type="primary" @click="sendPhone">发送到手机</Button>
+            </template>
+          </Table>
+        </Card>
       </div>
-      <Button class="bottom-btn" @click="back" type="primary">返回</Button>
-    </div>
+    </template>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -439,9 +630,20 @@ const back = () => {
       }
     }
   }
-  
+
   .bottom-btn {
     margin-top: 20px;
+  }
+}
+
+.table-right {
+  width: 84.4vw;
+  padding: 40px 20px;
+
+  .tit {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.88);
+    font-weight: bold;
   }
 }
 </style>
