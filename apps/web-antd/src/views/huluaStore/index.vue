@@ -65,7 +65,7 @@ const back = () => {
 // -------------------------数据来源-------------------------
 const formState = ref<any>({
   source: '',
-  sex: ''
+  // sex: ''
 })
 
 const formRef = ref();
@@ -119,7 +119,15 @@ const columns = [
     ellipsis: true
   },
   {
-    title: '问题',
+    title: '画像',
+    dataIndex: 'detail',
+    key: 'detail',
+    align: 'center',
+    width: 180,
+    ellipsis: true
+  },
+  {
+    title: '社交平台留言',
     dataIndex: 'row5',
     key: 'row5',
     align: 'center',
@@ -127,20 +135,12 @@ const columns = [
     // ellipsis: true
   },
   {
-    title: 'AI生成私信开场语',
+    title: '私信话术建议',
     dataIndex: 'row6',
     key: 'row6',
     align: 'center',
     width: 200,
     // ellipsis: true
-  },
-  {
-    title: '画像',
-    dataIndex: 'row7',
-    key: 'row7',
-    align: 'center',
-    width: 180,
-    ellipsis: true
   },
   {
     title: '操作',
@@ -251,12 +251,12 @@ const tableChange = (p) => {
           <img v-else src="../../assets/svg/flag.svg" alt="SVG Icon" width="16" height="16" />
           <div class="text" :class="menuIndex === 3 ? 'text-active' : ''">智能助理</div>
         </div> -->
-        <div class="menu-item" :class="menuIndex === 4 ? 'menu-item-active' : ''" @click="handleMenuItem(4)">
+        <!-- <div class="menu-item" :class="menuIndex === 4 ? 'menu-item-active' : ''" @click="handleMenuItem(4)">
           <img v-if="menuIndex === 4" src="../../assets/svg/areachart-active.svg" alt="SVG Icon" width="16"
             height="16" />
           <img v-else src="../../assets/svg/areachart.svg" alt="SVG Icon" width="16" height="16" />
           <div class="text" :class="menuIndex === 4 ? 'text-active' : ''">数据来源</div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- 热门推荐 -->
@@ -346,12 +346,12 @@ const tableChange = (p) => {
                 <SelectOption value="小红书">小红书</SelectOption>
               </Select>
             </FormItem>
-            <FormItem label="性别" name="sex">
+            <!-- <FormItem label="性别" name="sex">
               <Select v-model:value="formState.sex" placeholder="请选择" style="width: 120px;">
                 <SelectOption value="男">男</SelectOption>
                 <SelectOption value="女">女</SelectOption>
               </Select>
-            </FormItem>
+            </FormItem> -->
             <FormItem>
               <Button type="primary" @click="onSubmit">查询</Button>
               <Button style="margin-left: 10px" @click="resetForm">重置</Button>
@@ -361,6 +361,9 @@ const tableChange = (p) => {
             @change='tableChange' :pagination="pagination" <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'action'">
               <Button size="small" type="primary" @click="sendPhone">发送到手机</Button>
+            </template>
+            <template v-if="column.dataIndex === 'detail'">
+              <Button size="small" @click="sendPhone">查看详情</Button>
             </template>
           </Table>
         </Card>
