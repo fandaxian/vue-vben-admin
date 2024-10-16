@@ -36,7 +36,8 @@ const listChildren: any = [
     title: '热门推荐',
     child: [
       {
-        name: '待定'
+        url: 'a',
+        tit: '文案妙笔'
       },
       // {
       //   name: '1'
@@ -60,6 +61,10 @@ const viewDetails = () => {
 }
 const back = () => {
   showDetails.value = false
+}
+
+const yes = () => {
+  
 }
 
 // -------------------------数据来源-------------------------
@@ -262,23 +267,44 @@ const tableChange = (p) => {
     <!-- 热门推荐 -->
     <template v-if="menuIndex === 0">
       <div class="right" v-if="!showDetails">
-        <InputSearch class="input-search" v-model:value="searchValue" placeholder="input search text" size="large"
-          @search="onSearch">
-          <template #enterButton>
-            <div class="s-w">
-              <MdiMagnify class="size-5" />
-              <!-- <Button type="primary">搜索</Button> -->
-            </div>
-          </template>
-        </InputSearch>
+        <div class="icons">
+          <img class="icon-1-1" src="../../assets/hulu_2.png" alt="">
+          <img class="icon-2-1" src="../../assets/hulu_1.png" alt="">
+        </div>
+        <div class="ttt">汇 聚 保 险 + 医 健 业 务 场 景 ，探 索 未 来 无 限 可 能</div>
         <div class="right-content">
           <div class="right-content-item" v-for="item in listChildren">
-            <div class="title">
+            <!-- <div class="title">
               {{ item.title }}
-            </div>
+            </div> -->
             <div class="list">
-              <div class="list-item" v-for="c in item.child" @click="viewDetails">
-                <!-- {{ c.name }} -->
+              <div class="list-item" @click="viewDetails">
+                <img style="width: 100%;height: 200px;" src="../../assets/a.png" alt="">
+                <div class="aa">
+                  <div class="a-1">文案妙笔</div>
+                  <div class="a-2">快速生成吸引人的文案内容，无论是广告语还是推广文章，都能妙笔生花，助你轻松创作营销文案。</div>
+                </div>
+              </div>
+              <div class="list-item" @click="viewDetails">
+                <img style="width: 100%;height: 200px;" src="../../assets/b.png" alt="">
+                <div class="aa">
+                  <div class="a-1">洞察精灵</div>
+                  <div class="a-2">能够深度挖掘客户数据，分析客户的消费偏好、行为习惯等，如同拥有一双洞察市场的慧眼，为营销…</div>
+                </div>
+              </div>
+              <div class="list-item" @click="viewDetails">
+                <img style="width: 100%;height: 200px;" src="../../assets/c.png" alt="">
+                <div class="aa">
+                  <div class="a-1">AI 面试</div>
+                  <div class="a-2">是一款引领招聘新潮流的 AI 面试小工具，融合了先进的人工智能技术与人力资源专业知识，旨在为企业…</div>
+                </div>
+              </div>
+              <div class="list-item" @click="viewDetails">
+                <img style="width: 100%;height: 200px;" src="../../assets/d.png" alt="">
+                <div class="aa">
+                  <div class="a-1">渠道导航仪</div>
+                  <div class="a-2">清晰呈现各营销渠道的数据表现，帮助你准确找到最优推广渠道，如同导航仪为你指引方向，优化渠…</div>
+                </div>
               </div>
             </div>
           </div>
@@ -286,26 +312,58 @@ const tableChange = (p) => {
       </div>
       <div class="details" v-else>
         <div class="line1">
-          <div class="app-icon"></div>
+          <img class="app-icon" src="../../assets/icon.png" alt="">
           <div class="line1-right-wrapper">
-            <div class="line1-right-text">XXXXXXXXX</div>
-            <div class="line1-right-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮</div>
+            <div class="line1-right-text">AI 面试</div>
+            <div class="line1-right-text2">是一种利用人工智能技术来辅助面试过程的创新工具</div>
           </div>
         </div>
         <div class="c-wrapper">
           <div class="line2">
-            <div class="line2-text">XXXXXXX</div>
-            <div class="line2-text2">提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提提高您的邮件会议撰写效率提高您邮件会</div>
+            <!-- <div class="line2-text">XXXXXXX</div> -->
+            <div class="line2-text2">是一款引领招聘新潮流的 AI 面试小工具，融合了先进的人工智能技术与人力资源专业知识，旨在为企业和求职者打造高效、精准、便捷的面试体验。</div>
           </div>
-          <div class="line3-text">XXXXXXX</div>
           <div class="show-wrapper">
-            <div class="show1"></div>
-            <div class="show1"></div>
+            <div class="show1">
+              <div class="line3-text">社交媒体监测与管理</div>
+              <img class="c" src="../../assets//aa.png" alt="">
+            </div>
+            <div class="show1">
+              <div class="line3-text">潜在客户获取与画像</div>
+              <img class="c" src="../../assets//bb.png" alt="">
+            </div>
           </div>
           <div class="line4">
-            提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
+            大幅缩短面试时间，AI 可同时对多位候选人进行面试，快速筛选出符合企业基本要求的人选，让招聘人员将精力集中在更有价值的深度面试环节。
           </div>
-          <div class="number-wrapper">
+          <div class="new">
+            <div class="hhh">
+              <div class="ww">10+</div>
+              <div class="dd">对接社交平台与渠道</div>
+            </div>
+            <div class="hhh">
+              <div class="ww">80%</div>
+              <div class="dd">提升获取潜客效率</div>
+            </div>
+            <div class="hhh">
+              <div class="ww">10+</div>
+              <div class="dd">适配APP/小程序等</div>
+            </div>
+          </div>
+          <div class="show-wrapper">
+            <div class="show1">
+              <div class="line3-text">个相化话术推荐</div>
+              <img class="c" src="../../assets//cc.png" alt="">
+            </div>
+            <div class="show1">
+              <div class="line3-text">销售数据预测</div>
+              <img class="c" src="../../assets//dd.png" alt="">
+            </div>
+          </div>
+          <div class="line4">
+            打破地域限制，让企业与异地求职者轻松进行面试交流。无论候选人身处何地，都能通过 “智选面试助手” 参与面试，为企业拓展人才来源渠道
+          </div>
+          <!-- <div class="number-wrapper">
             <div class="number-item">
               <div class="number-item-text1">500+</div>
               <div class="number-item-text2">xxxxxxxxx</div>
@@ -330,9 +388,12 @@ const tableChange = (p) => {
           </div>
           <div class="line4-n">
             提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提,提高您的邮件会议撰写效率提高您邮件会议撰写效率提高您的邮提
-          </div>
+          </div> -->
         </div>
-        <Button class="bottom-btn" @click="back" type="primary">返回</Button>
+        <div>
+          <Button class="bottom-btn" @click="yes" type="primary" style="margin-right: 20px;">立即使用</Button>
+          <Button class="bottom-btn" @click="back">返回</Button>
+        </div>
       </div>
     </template>
     <!-- 数据来源 -->
@@ -391,14 +452,25 @@ const tableChange = (p) => {
 
 .icons {
   margin-top: 35px;
-  margin-bottom: 23px;
+  // margin-bottom: 23px;
   display: flex;
   align-items: flex-end;
+  align-items: center;
 }
 
 .icon-1 {
   width: 2.2vw;
   height: 32px;
+}
+
+.icon-1-1 {
+  width: 3.2vw;
+  height: 45px;
+}
+
+.icon-2-1 {
+  width: 15.72vw;
+  height: 48px;
 }
 
 .icon-2 {
@@ -489,16 +561,34 @@ const tableChange = (p) => {
 
         .list-item {
           // flex: 1 1 calc(25% - 10px);
-          width: 24%;
+          width: 32%;
           /* 每项占 25% 减去间距 */
-          height: 130px;
+          height: 300px;
           /* 项目高度 */
           display: flex;
-          align-items: center;
-          justify-content: center;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
           background: rgba(255, 255, 255, 0.80);
           border-radius: 12px;
           cursor: pointer;
+
+          .aa {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+
+            .a-1 {
+              font-size: 18px;
+              color: #15161A;
+              font-weight: bold;
+            }
+
+            .a-2 {
+              font-size: 14px;
+              color: #909399;
+            }
+          }
         }
       }
     }
@@ -522,7 +612,7 @@ const tableChange = (p) => {
       margin-right: 1.6vw;
       width: 100px;
       height: 100px;
-      background-image: linear-gradient(209deg, #40A8F4 0%, #416BF6 100%);
+      // background-image: linear-gradient(209deg, #40A8F4 0%, #416BF6 100%);
       border-radius: 20px;
     }
 
@@ -577,7 +667,7 @@ const tableChange = (p) => {
     }
 
     .line3-text {
-      margin-top: 3.2vh;
+      // margin-top: 3.2vh;
       font-size: 20px;
       color: #15161A;
       font-weight: bold;
@@ -585,6 +675,8 @@ const tableChange = (p) => {
     }
 
     .show-wrapper {
+      margin-top: 3.2vh;
+      // margin-bottom: 2.2vh;
       width: 100%;
       display: flex;
       align-items: center;
@@ -592,10 +684,19 @@ const tableChange = (p) => {
       margin-bottom: 3.2vh;
 
       .show1 {
-        height: 24.3vh;
+        display: flex;
+        flex-direction: column;
+        // height: 28.3vh;
         width: 49%;
-        background: #DEECFF;
+        // background: #DEECFF;
         border-radius: 8px;
+      }
+
+      .c {
+        height: 26.3vh;
+        // width: 49%;
+        // background: #DEECFF;
+        // border-radius: 8px;
       }
     }
 
@@ -653,6 +754,43 @@ const tableChange = (p) => {
     font-size: 16px;
     color: rgba(0, 0, 0, 0.88);
     font-weight: bold;
+  }
+}
+
+.ttt {
+  margin-top: 8px;
+  font-size: 20px;
+  color: #15161A;
+}
+
+.new {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 50px 0;
+
+  .hhh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 280px;
+    height: 150px;
+    background: #EBF4FF;
+    border-radius: 20px;
+
+    .ww {
+      font-size: 50px;
+      color: #172456;
+      font-weight: 700;
+    }
+
+    .dd {
+      margin-top: 8px;
+      font-size: 18px;
+      color: #909399;
+    }
   }
 }
 </style>

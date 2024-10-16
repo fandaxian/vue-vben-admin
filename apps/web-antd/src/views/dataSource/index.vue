@@ -1,31 +1,48 @@
 <template>
     <div ref="myElement" class="content-wrapper">
         <div class="left">
-            <!-- <div class="icons">
-                <img class="icon-1" src="../../assets/hulu_2.png" alt="">
-                <img class="icon-2" src="../../assets/hulu_1.png" alt="">
-            </div> -->
-            <div class="l-title">管理系统</div>
+            <div class="icons">
+                <img class="icon-1" src="../../assets/ff.png" alt="">
+                <img class="icon-2" src="../../assets/gg.png" alt="">
+            </div>
+            <!-- <div class="l-title">团长管家平台</div> -->
             <div class="menu-wrapper">
+                <div class="menu-item" :class="menuIndex === 0 ? 'menu-item-active' : ''" @click="handleMenuItem(0)">
+                    <img v-if="menuIndex === 0" src="../../assets/svg/areachart-active.svg" alt="SVG Icon" width="16"
+                        height="16" />
+                    <img v-else src="../../assets/svg/areachart.svg" alt="SVG Icon" width="16" height="16" />
+                    <div class="text" :class="menuIndex === 0 ? 'text-active' : ''">数据看板</div>
+                </div>
                 <div class="menu-item" :class="menuIndex === 1 ? 'menu-item-active' : ''" @click="handleMenuItem(1)">
                     <img v-if="menuIndex === 1" src="../../assets/svg/areachart-active.svg" alt="SVG Icon" width="16"
                         height="16" />
                     <img v-else src="../../assets/svg/areachart.svg" alt="SVG Icon" width="16" height="16" />
-                    <div class="text" :class="menuIndex === 1 ? 'text-active' : ''">潜在代理人</div>
+                    <div class="text" :class="menuIndex === 1 ? 'text-active' : ''">社群高潜</div>
                 </div>
                 <div class="menu-item" :class="menuIndex === 2 ? 'menu-item-active' : ''" @click="handleMenuItem(2)">
                     <img v-if="menuIndex === 2" src="../../assets/svg/areachart-active.svg" alt="SVG Icon" width="16"
                         height="16" />
                     <img v-else src="../../assets/svg/areachart.svg" alt="SVG Icon" width="16" height="16" />
-                    <div class="text" :class="menuIndex === 2 ? 'text-active' : ''">潜在客户</div>
+                    <div class="text" :class="menuIndex === 2 ? 'text-active' : ''">潜在代理人</div>
+                </div>
+                <div class="menu-item" :class="menuIndex === 3 ? 'menu-item-active' : ''" @click="handleMenuItem(3)">
+                    <img v-if="menuIndex === 3" src="../../assets/svg/areachart-active.svg" alt="SVG Icon" width="16"
+                        height="16" />
+                    <img v-else src="../../assets/svg/areachart.svg" alt="SVG Icon" width="16" height="16" />
+                    <div class="text" :class="menuIndex === 3 ? 'text-active' : ''">潜在客户</div>
                 </div>
             </div>
         </div>
-        <!-- 潜在代理人 -->
+        <template v-if="menuIndex === 0">
+            <div class="table-right">
+                <img class="dashbord" src="../../assets/dashbord.png" alt="">
+            </div>
+        </template>
+        <!-- 社群高潜 -->
         <template v-if="menuIndex === 1">
             <div class="table-right">
                 <Card>
-                    <div class="tit">潜在代理人信息</div>
+                    <div class="tit">社群高潜</div>
                     <Form style="margin: 20px 0;" ref="formRef" layout="inline" :model="formState">
                         <FormItem label="渠道来源" name="source">
                             <Select v-model:value="formState.source" placeholder="请选择" style="width: 120px;">
@@ -43,17 +60,45 @@
                             <Button size="small" type="primary" @click="sendPhone(record)">发送到手机</Button>
                         </template>
                         <template v-if="column.dataIndex === 'detail'">
-                            <Button size="small" @click="showDetail">查看详情</Button>
+                            <Button size="small" type="primary" @click="showDetail">查看详情</Button>
+                        </template>
+                    </Table>
+                </Card>
+            </div>
+        </template>
+        <!-- 潜在代理人 -->
+        <template v-if="menuIndex === 2">
+            <div class="table-right">
+                <Card>
+                    <div class="tit">潜在代理人</div>
+                    <Form style="margin: 20px 0;" ref="formRef" layout="inline" :model="formState">
+                        <FormItem label="渠道来源" name="source">
+                            <Select v-model:value="formState.source" placeholder="请选择" style="width: 120px;">
+                                <SelectOption value="小红书">小红书</SelectOption>
+                            </Select>
+                        </FormItem>
+                        <FormItem>
+                            <Button type="primary" @click="onSubmit">查询</Button>
+                            <Button style="margin-left: 10px" @click="resetForm">重置</Button>
+                        </FormItem>
+                    </Form>
+                    <Table :loading="loading" :dataSource="dataSource" :columns="columns" :scroll="{ x: 1000, y: 400 }"
+                        @change='tableChange' :pagination="pagination" <template #bodyCell="{ column, record }">
+                        <template v-if="column.dataIndex === 'action'">
+                            <Button size="small" type="primary" @click="sendPhone(record)">发送到手机</Button>
+                        </template>
+                        <template v-if="column.dataIndex === 'detail'">
+                            <Button size="small" type="primary" @click="showDetail">查看详情</Button>
                         </template>
                     </Table>
                 </Card>
             </div>
         </template>
         <!-- 潜在客户 -->
-        <template v-if="menuIndex === 2">
+        <template v-if="menuIndex === 3">
             <div class="table-right">
                 <Card>
-                    <div class="tit">潜在客户信息</div>
+                    <div class="tit">潜在客户</div>
                     <Form style="margin: 20px 0;" ref="formRef" layout="inline" :model="formState">
                         <FormItem label="渠道来源" name="source">
                             <Select v-model:value="formState.source" placeholder="请选择" style="width: 120px;">
@@ -71,7 +116,7 @@
                             <Button size="small" type="primary" @click="sendPhone">发送到手机</Button>
                         </template>
                         <template v-if="column.dataIndex === 'detail'">
-                            <Button size="small" @click="sendPhone">查看详情</Button>
+                            <Button size="small" type="primary" @click="sendPhone">查看详情</Button>
                         </template>
                     </Table>
                 </Card>
@@ -104,7 +149,7 @@ const elementHeight = ref<number>(0)
 onMounted(() => {
     resizeBox()
     window.addEventListener('resize', resizeBox); // 监听窗口大小变化
-    queryDataSource()
+
 })
 onBeforeUnmount(() => {
     window.removeEventListener('resize', resizeBox);
@@ -116,11 +161,13 @@ const resizeBox = debounce(() => {
         myElement.value.style.backgroundSize = `${elementWidth.value}px ${elementHeight.value}px`;
     }
 }, 300)
-const menuIndex = ref<number>(1)
+const menuIndex = ref<number>(0)
 const handleMenuItem = (index: number) => {
     menuIndex.value = index
-    if (index === 2) {
-        console.log('潜在客户数据')
+    dataSource.value = []
+    if (index === 1) {
+        console.log('社群高潜')
+        queryDataSource()
     }
 }
 // -------------------------数据来源-------------------------
@@ -331,7 +378,8 @@ const showDetail = () => {
 }
 
 .icon-2 {
-    width: 9.72vw;
+    margin-left: 10px;
+    width: 8vw;
     height: 28px;
 }
 
@@ -577,11 +625,17 @@ const showDetail = () => {
 .table-right {
     width: 84.4vw;
     padding: 40px 20px;
+    overflow-y: auto;
 
     .tit {
         font-size: 16px;
         color: rgba(0, 0, 0, 0.88);
         font-weight: bold;
     }
+}
+
+.dashbord {
+    width: 100%;
+    height: 900px
 }
 </style>
